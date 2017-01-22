@@ -1,15 +1,133 @@
-language: python
-python:
-  - "2.7"
-  - "3.3"
-  - "3.4"
-  - "3.5"
-  - "3.6"
-env:
-  - RUST_VERSION=1.13.0
-  - RUST_VERSION=nightly
-sudo: false
+matrix:
+  include:
+    # Execute this code installing *cogapp* from PyPI and then:
+    # `cog.py -r .travis.yml` to update inplace.
+    #[[[cog
+    #import cog
+    #template = """\
+    #- language: generic
+    #  python: {pyver}
+    #  os: osx
+    #  env:
+    #    - pyver={pyver} pydist=macpython
+    #    - RUST_VERSION={rustver}
+    #- language: python
+    #  python: {pyver}
+    #  env:
+    #    - RUST_VERSION={rustver}\
+    #"""
+    #for pyver in ('2.7', '3.3', '3.4', '3.5', '3.6'):
+    #    for rustver in ('1.13.0', 'nightly'):
+    #        cog.outl(template.format(**locals()))
+    #]]]
+    - language: generic
+      python: 2.7
+      os: osx
+      env:
+        - pyver=2.7 pydist=macpython
+        - RUST_VERSION=1.13.0
+    - language: python
+      python: 2.7
+      env:
+        - RUST_VERSION=1.13.0
+    - language: generic
+      python: 2.7
+      os: osx
+      env:
+        - pyver=2.7 pydist=macpython
+        - RUST_VERSION=nightly
+    - language: python
+      python: 2.7
+      env:
+        - RUST_VERSION=nightly
+    - language: generic
+      python: 3.3
+      os: osx
+      env:
+        - pyver=3.3 pydist=macpython
+        - RUST_VERSION=1.13.0
+    - language: python
+      python: 3.3
+      env:
+        - RUST_VERSION=1.13.0
+    - language: generic
+      python: 3.3
+      os: osx
+      env:
+        - pyver=3.3 pydist=macpython
+        - RUST_VERSION=nightly
+    - language: python
+      python: 3.3
+      env:
+        - RUST_VERSION=nightly
+    - language: generic
+      python: 3.4
+      os: osx
+      env:
+        - pyver=3.4 pydist=macpython
+        - RUST_VERSION=1.13.0
+    - language: python
+      python: 3.4
+      env:
+        - RUST_VERSION=1.13.0
+    - language: generic
+      python: 3.4
+      os: osx
+      env:
+        - pyver=3.4 pydist=macpython
+        - RUST_VERSION=nightly
+    - language: python
+      python: 3.4
+      env:
+        - RUST_VERSION=nightly
+    - language: generic
+      python: 3.5
+      os: osx
+      env:
+        - pyver=3.5 pydist=macpython
+        - RUST_VERSION=1.13.0
+    - language: python
+      python: 3.5
+      env:
+        - RUST_VERSION=1.13.0
+    - language: generic
+      python: 3.5
+      os: osx
+      env:
+        - pyver=3.5 pydist=macpython
+        - RUST_VERSION=nightly
+    - language: python
+      python: 3.5
+      env:
+        - RUST_VERSION=nightly
+    - language: generic
+      python: 3.6
+      os: osx
+      env:
+        - pyver=3.6 pydist=macpython
+        - RUST_VERSION=1.13.0
+    - language: python
+      python: 3.6
+      env:
+        - RUST_VERSION=1.13.0
+    - language: generic
+      python: 3.6
+      os: osx
+      env:
+        - pyver=3.6 pydist=macpython
+        - RUST_VERSION=nightly
+    - language: python
+      python: 3.6
+      env:
+        - RUST_VERSION=nightly
+    #[[[end]]]
+
+#  Manually install python on osx
+before_install:
+  - if [[ $TRAVIS_OS_NAME == 'osx' ]]; then source ci/osx-install.sh; fi
+
 install:
+  - python -V
   - python -c "import sysconfig; print('\n'.join(map(repr,sorted(sysconfig.get_config_vars().items()))))"
   - mkdir ~/rust-installer
   - curl -sL https://static.rust-lang.org/rustup.sh -o ~/rust-installer/rustup.sh
@@ -20,6 +138,6 @@ install:
   - export LIBRARY_PATH="$LIBRARY_PATH:$PYTHON_LIB"
   - export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$PYTHON_LIB:$HOME/rust/lib"
   - rustc -V
+
 script:
   - make test extensions
-
