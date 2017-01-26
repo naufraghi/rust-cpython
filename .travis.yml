@@ -11,7 +11,7 @@ matrix:
     #  python: {pyver}
     #  os: osx
     #  env:
-    #    - pyver={pyver} pydist=macpython
+    #    - pyver={pyver} pydist=homebrew
     #    - RUST_VERSION={rustver}
     #- language: python
     #  python: {pyver}
@@ -26,7 +26,7 @@ matrix:
       python: 2.7
       os: osx
       env:
-        - pyver=2.7 pydist=macpython
+        - pyver=2.7 pydist=homebrew
         - RUST_VERSION=1.13.0
     - language: python
       python: 2.7
@@ -36,7 +36,7 @@ matrix:
       python: 2.7
       os: osx
       env:
-        - pyver=2.7 pydist=macpython
+        - pyver=2.7 pydist=homebrew
         - RUST_VERSION=nightly
     - language: python
       python: 2.7
@@ -46,7 +46,7 @@ matrix:
       python: 3.3
       os: osx
       env:
-        - pyver=3.3 pydist=macpython
+        - pyver=3.3 pydist=homebrew
         - RUST_VERSION=1.13.0
     - language: python
       python: 3.3
@@ -56,7 +56,7 @@ matrix:
       python: 3.3
       os: osx
       env:
-        - pyver=3.3 pydist=macpython
+        - pyver=3.3 pydist=homebrew
         - RUST_VERSION=nightly
     - language: python
       python: 3.3
@@ -66,7 +66,7 @@ matrix:
       python: 3.4
       os: osx
       env:
-        - pyver=3.4 pydist=macpython
+        - pyver=3.4 pydist=homebrew
         - RUST_VERSION=1.13.0
     - language: python
       python: 3.4
@@ -76,7 +76,7 @@ matrix:
       python: 3.4
       os: osx
       env:
-        - pyver=3.4 pydist=macpython
+        - pyver=3.4 pydist=homebrew
         - RUST_VERSION=nightly
     - language: python
       python: 3.4
@@ -86,7 +86,7 @@ matrix:
       python: 3.5
       os: osx
       env:
-        - pyver=3.5 pydist=macpython
+        - pyver=3.5 pydist=homebrew
         - RUST_VERSION=1.13.0
     - language: python
       python: 3.5
@@ -96,7 +96,7 @@ matrix:
       python: 3.5
       os: osx
       env:
-        - pyver=3.5 pydist=macpython
+        - pyver=3.5 pydist=homebrew
         - RUST_VERSION=nightly
     - language: python
       python: 3.5
@@ -106,7 +106,7 @@ matrix:
       python: 3.6
       os: osx
       env:
-        - pyver=3.6 pydist=macpython
+        - pyver=3.6 pydist=homebrew
         - RUST_VERSION=1.13.0
     - language: python
       python: 3.6
@@ -116,7 +116,7 @@ matrix:
       python: 3.6
       os: osx
       env:
-        - pyver=3.6 pydist=macpython
+        - pyver=3.6 pydist=homebrew
         - RUST_VERSION=nightly
     - language: python
       python: 3.6
