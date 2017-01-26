@@ -1,4 +1,6 @@
 matrix:
+  allow_failures:
+    os: osx
   include:
     # Execute this code installing *cogapp* from PyPI and then:
     # `cog.py -r .travis.yml` to update inplace.
