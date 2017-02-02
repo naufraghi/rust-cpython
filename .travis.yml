@@ -118,7 +118,7 @@ matrix:
 
 #  Manually install python on osx
 before_install:
-  - if [[ $TRAVIS_OS_NAME == 'osx' && BREW_PYTHON != 'python27' ]]; then source ci/osx-install.sh; fi
+  - if [[ $TRAVIS_OS_NAME == 'osx' && $BREW_PYTHON != 'python27' ]]; then ci/osx-install.sh; fi
 
 install:
   - python -V
