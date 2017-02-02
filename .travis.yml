@@ -1,6 +1,4 @@
 matrix:
-  allow_failures:
-    os: osx
   include:
     # Execute this code installing *cogapp* from PyPI and then:
     # `cog.py -r .travis.yml` to update inplace.
@@ -115,6 +113,9 @@ matrix:
       env:
         - RUST_VERSION=nightly
     #[[[end]]]
+  allow_failures:
+      env:
+        - RUST_VERSION=nightly
 
 #  Manually install python on osx
 before_install:
