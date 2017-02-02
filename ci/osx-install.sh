@@ -1,4 +1,4 @@
 #!/bin/sh
 
-brew tap zoidbergwill/python
+brew tap naufraghi/python
 brew install $BREW_PYTHON
