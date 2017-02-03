@@ -18,7 +18,7 @@ matrix:
   #    - RUST_VERSION={rustver}\
   #"""
   #envs = """\
-  #- RUST_VERSION={rustver} BREW_PYTHON={brew_python}\
+  #- env: RUST_VERSION={rustver} BREW_PYTHON={brew_python}\
   #"""
   #]]]
   #[[[end]]]
@@ -121,20 +121,19 @@ matrix:
         - RUST_VERSION=nightly
     #[[[end]]]
   allow_failures:
-    env:
-      #[[[cog
-      #for pyver in PYTHON_VERSIONS:
-      #    brew_python = 'python' + pyver.replace('.', '')
-      #    for rustver in RUST_VERSIONS:
-      #        if rustver in allowed_failures:
-      #            cog.outl(envs.format(**locals()))
-      #]]]
-      - RUST_VERSION=nightly BREW_PYTHON=python27
-      - RUST_VERSION=nightly BREW_PYTHON=python33
-      - RUST_VERSION=nightly BREW_PYTHON=python34
-      - RUST_VERSION=nightly BREW_PYTHON=python35
-      - RUST_VERSION=nightly BREW_PYTHON=python36
-      #[[[end]]]
+    #[[[cog
+    #for pyver in PYTHON_VERSIONS:
+    #    brew_python = 'python' + pyver.replace('.', '')
+    #    for rustver in RUST_VERSIONS:
+    #        if rustver in allowed_failures:
+    #            cog.outl(envs.format(**locals()))
+    #]]]
+    - env: RUST_VERSION=nightly BREW_PYTHON=python27
+    - env: RUST_VERSION=nightly BREW_PYTHON=python33
+    - env: RUST_VERSION=nightly BREW_PYTHON=python34
+    - env: RUST_VERSION=nightly BREW_PYTHON=python35
+    - env: RUST_VERSION=nightly BREW_PYTHON=python36
+    #[[[end]]]
 
 #  Manually install python on osx
 before_install:
