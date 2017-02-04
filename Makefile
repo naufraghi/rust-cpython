@@ -1,4 +1,4 @@
-.PHONY: default build test doc extensions clean
+.PHONY: default build test doc extensions clean cog
 
 ifndef PY
 PY := $(word 2, $(subst ., ,$(shell python --version 2>&1)))
@@ -35,6 +35,12 @@ src/py_class/py_class_impl2.rs: src/py_class/py_class_impl.py
 src/py_class/py_class_impl3.rs: src/py_class/py_class_impl.py
 	PY=3 python $< >$@
 
+.rust.stable:
+	curl -s https://static.rust-lang.org/dist/channel-rust-stable.toml | grep -A1 "\[pkg.rust\]" | tail -1 | egrep -o "[0-9]+\.[0-9]+\.[0-9]+" > $@
+
+cog: .travis.yml .rust.stable
+	cog.py -r $<
+
 build: src/py_class/py_class_impl2.rs src/py_class/py_class_impl3.rs
 	cargo build $(CARGO_FLAGS)
 
@@ -53,6 +59,7 @@ extensions: build
 
 clean:
 	rm -r target
+	rm -f .rust.stable
 	make -C extensions/ clean
 
 gh-pages:
