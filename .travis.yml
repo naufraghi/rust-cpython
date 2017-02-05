@@ -3,42 +3,50 @@
 #       osx python build will be correctly configured.
 # #####################################################################
 #
-# toplevel defs to allow failures
-# https://docs.travis-ci.com/user/customizing-the-build#sts=Rows%20that%20are%20Allowed%20to%20Fail
-language: generic
-python: 2.7
-env: # important
+# Execute this code installing *cogapp* from PyPI and then:
+# `cog.py -r .travis.yml` to update inplace.
+#[[[cog
+#import cog
+#PYTHON_VERSIONS = ('2.7', '3.3', '3.4', '3.5', '3.6')
+#RUST_VERSIONS = {'1.13.0', 'nightly'}
+#stable = open('.rust.stable').read().strip()
+#RUST_VERSIONS.add(stable)
+#allowed_failures = {'nightly'}
+#includes = """\
+#- language: generic
+#  python: {pyver}
+#  os: osx
+#  env:
+#    - RUST_VERSION={rustver} BREW_PYTHON={brew_python}\
+#"""
+#]]]
+#[[[end]]]
+
+language: python
+python:
+  #[[[cog
+  #for pyver in sorted(PYTHON_VERSIONS):
+  #    cog.outl("- {pyver}".format(**locals()))
+  #]]]
+  - 2.7
+  - 3.3
+  - 3.4
+  - 3.5
+  - 3.6
+  #[[[end]]]
+env:
+  #[[[cog
+  #for rustver in sorted(RUST_VERSIONS):
+  #    cog.outl("- RUST_VERSIONS={rustver}".format(**locals()))
+  #]]]
+  - RUST_VERSIONS=1.13.0
+  - RUST_VERSIONS=1.15.0
+  - RUST_VERSIONS=nightly
+  #[[[end]]]
 os: linux
 
 matrix:
-  exclude: # skip the toplevel placeholder
-    - language: generic
-      python: 2.7
-      env: # important
-      os: linux
-  # Execute this code installing *cogapp* from PyPI and then:
-  # `cog.py -r .travis.yml` to update inplace.
-  #[[[cog
-  #import cog
-  #PYTHON_VERSIONS = ('2.7', '3.3', '3.4', '3.5', '3.6')
-  #RUST_VERSIONS = {'1.13.0', 'nightly'}
-  #stable = open('.rust.stable').read().strip()
-  #RUST_VERSIONS.add(stable)
-  #allowed_failures = {'nightly'}
-  #includes = """\
-  #- language: generic
-  #  python: {pyver}
-  #  os: osx
-  #  env:
-  #    - RUST_VERSION={rustver} BREW_PYTHON={brew_python}
-  #- language: python
-  #  python: {pyver}
-  #  env:
-  #    - RUST_VERSION={rustver}\
-  #"""
-  #]]]
-  #[[[end]]]
-  include:
+ include:
     #[[[cog
     #for pyver in sorted(PYTHON_VERSIONS):
     #    brew_python = 'python' + pyver.replace('.', '')
@@ -50,136 +58,76 @@ matrix:
       os: osx
       env:
         - RUST_VERSION=1.13.0 BREW_PYTHON=python27
-    - language: python
-      python: 2.7
-      env:
-        - RUST_VERSION=1.13.0
     - language: generic
       python: 2.7
       os: osx
       env:
         - RUST_VERSION=1.15.0 BREW_PYTHON=python27
-    - language: python
-      python: 2.7
-      env:
-        - RUST_VERSION=1.15.0
     - language: generic
       python: 2.7
       os: osx
       env:
         - RUST_VERSION=nightly BREW_PYTHON=python27
-    - language: python
-      python: 2.7
-      env:
-        - RUST_VERSION=nightly
     - language: generic
       python: 3.3
       os: osx
       env:
         - RUST_VERSION=1.13.0 BREW_PYTHON=python33
-    - language: python
-      python: 3.3
-      env:
-        - RUST_VERSION=1.13.0
     - language: generic
       python: 3.3
       os: osx
       env:
         - RUST_VERSION=1.15.0 BREW_PYTHON=python33
-    - language: python
-      python: 3.3
-      env:
-        - RUST_VERSION=1.15.0
     - language: generic
       python: 3.3
       os: osx
       env:
         - RUST_VERSION=nightly BREW_PYTHON=python33
-    - language: python
-      python: 3.3
-      env:
-        - RUST_VERSION=nightly
     - language: generic
       python: 3.4
       os: osx
       env:
         - RUST_VERSION=1.13.0 BREW_PYTHON=python34
-    - language: python
-      python: 3.4
-      env:
-        - RUST_VERSION=1.13.0
     - language: generic
       python: 3.4
       os: osx
       env:
         - RUST_VERSION=1.15.0 BREW_PYTHON=python34
-    - language: python
-      python: 3.4
-      env:
-        - RUST_VERSION=1.15.0
     - language: generic
       python: 3.4
       os: osx
       env:
         - RUST_VERSION=nightly BREW_PYTHON=python34
-    - language: python
-      python: 3.4
-      env:
-        - RUST_VERSION=nightly
     - language: generic
       python: 3.5
       os: osx
       env:
         - RUST_VERSION=1.13.0 BREW_PYTHON=python35
-    - language: python
-      python: 3.5
-      env:
-        - RUST_VERSION=1.13.0
     - language: generic
       python: 3.5
       os: osx
       env:
         - RUST_VERSION=1.15.0 BREW_PYTHON=python35
-    - language: python
-      python: 3.5
-      env:
-        - RUST_VERSION=1.15.0
     - language: generic
       python: 3.5
       os: osx
       env:
         - RUST_VERSION=nightly BREW_PYTHON=python35
-    - language: python
-      python: 3.5
-      env:
-        - RUST_VERSION=nightly
     - language: generic
       python: 3.6
       os: osx
       env:
         - RUST_VERSION=1.13.0 BREW_PYTHON=python36
-    - language: python
-      python: 3.6
-      env:
-        - RUST_VERSION=1.13.0
     - language: generic
       python: 3.6
       os: osx
       env:
         - RUST_VERSION=1.15.0 BREW_PYTHON=python36
-    - language: python
-      python: 3.6
-      env:
-        - RUST_VERSION=1.15.0
     - language: generic
       python: 3.6
       os: osx
       env:
         - RUST_VERSION=nightly BREW_PYTHON=python36
-    - language: python
-      python: 3.6
-      env:
-        - RUST_VERSION=nightly
     #[[[end]]]
   allow_failures:
     #[[[cog
@@ -193,46 +141,26 @@ matrix:
       os: osx
       env:
         - RUST_VERSION=nightly BREW_PYTHON=python27
-    - language: python
-      python: 2.7
-      env:
-        - RUST_VERSION=nightly
     - language: generic
       python: 3.3
       os: osx
       env:
         - RUST_VERSION=nightly BREW_PYTHON=python33
-    - language: python
-      python: 3.3
-      env:
-        - RUST_VERSION=nightly
     - language: generic
       python: 3.4
       os: osx
       env:
         - RUST_VERSION=nightly BREW_PYTHON=python34
-    - language: python
-      python: 3.4
-      env:
-        - RUST_VERSION=nightly
     - language: generic
       python: 3.5
       os: osx
       env:
         - RUST_VERSION=nightly BREW_PYTHON=python35
-    - language: python
-      python: 3.5
-      env:
-        - RUST_VERSION=nightly
     - language: generic
       python: 3.6
       os: osx
       env:
         - RUST_VERSION=nightly BREW_PYTHON=python36
-    - language: python
-      python: 3.6
-      env:
-        - RUST_VERSION=nightly
     #[[[end]]]
 
 #  Manually install python on osx
