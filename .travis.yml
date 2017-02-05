@@ -1,4 +1,8 @@
-
+# #####################################################################
+# Note: Revert to a simpler matrix definition once the travis builtin
+#       osx python build will be correctly configured.
+# #####################################################################
+#
 # toplevel defs to allow failures
 # https://docs.travis-ci.com/user/customizing-the-build#sts=Rows%20that%20are%20Allowed%20to%20Fail
 language: generic
@@ -7,6 +11,11 @@ env: # important
 os: linux
 
 matrix:
+  exclude: # skip the toplevel placeholder
+    - language: generic
+      python: 2.7
+      env: # important
+      os: linux
   # Execute this code installing *cogapp* from PyPI and then:
   # `cog.py -r .travis.yml` to update inplace.
   #[[[cog
