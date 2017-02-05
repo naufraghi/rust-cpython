@@ -1,4 +1,11 @@
-env: # important: https://docs.travis-ci.com/user/customizing-the-build#sts=Rows%20that%20are%20Allowed%20to%20Fail
+
+# toplevel defs to allow failures
+# https://docs.travis-ci.com/user/customizing-the-build#sts=Rows%20that%20are%20Allowed%20to%20Fail
+language: generic
+python: 2.7
+env: # important
+os: linux
+
 matrix:
   # Execute this code installing *cogapp* from PyPI and then:
   # `cog.py -r .travis.yml` to update inplace.
@@ -166,7 +173,58 @@ matrix:
         - RUST_VERSION=nightly
     #[[[end]]]
   allow_failures:
-    - env: RUST_VERSION=nightly
+    #[[[cog
+    #for pyver in sorted(PYTHON_VERSIONS):
+    #    brew_python = 'python' + pyver.replace('.', '')
+    #    for rustver in sorted(RUST_VERSIONS & allowed_failures):
+    #        cog.outl(includes.format(**locals()))
+    #]]]
+    - language: generic
+      python: 2.7
+      os: osx
+      env:
+        - RUST_VERSION=nightly BREW_PYTHON=python27
+    - language: python
+      python: 2.7
+      env:
+        - RUST_VERSION=nightly
+    - language: generic
+      python: 3.3
+      os: osx
+      env:
+        - RUST_VERSION=nightly BREW_PYTHON=python33
+    - language: python
+      python: 3.3
+      env:
+        - RUST_VERSION=nightly
+    - language: generic
+      python: 3.4
+      os: osx
+      env:
+        - RUST_VERSION=nightly BREW_PYTHON=python34
+    - language: python
+      python: 3.4
+      env:
+        - RUST_VERSION=nightly
+    - language: generic
+      python: 3.5
+      os: osx
+      env:
+        - RUST_VERSION=nightly BREW_PYTHON=python35
+    - language: python
+      python: 3.5
+      env:
+        - RUST_VERSION=nightly
+    - language: generic
+      python: 3.6
+      os: osx
+      env:
+        - RUST_VERSION=nightly BREW_PYTHON=python36
+    - language: python
+      python: 3.6
+      env:
+        - RUST_VERSION=nightly
+    #[[[end]]]
 
 #  Manually install python on osx
 before_install:
