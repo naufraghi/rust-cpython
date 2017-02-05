@@ -1,3 +1,4 @@
+env: # important: https://docs.travis-ci.com/user/customizing-the-build#sts=Rows%20that%20are%20Allowed%20to%20Fail
 matrix:
   # Execute this code installing *cogapp* from PyPI and then:
   # `cog.py -r .travis.yml` to update inplace.
